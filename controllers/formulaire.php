@@ -22,15 +22,13 @@
         var_dump($skills);
 
         // Validation de la saisie
-    if(empty($name)) {
-        $errors .= "<li> Vous devez saisir le nom </li>";
+        if(empty($name)) {
+            $errors .= "<li> Vous devez saisir le nom </li>";
+        }
+        if (empty($age)) {
+            $errors .= "<li> Vous devez saisir l'age </li>";
+        }
     }
-    if (empty($age)) {
-        $errors .= "<li> Vous devez saisir l'age </li>";
-    }
-
-    }
-
     
 
 ?>
