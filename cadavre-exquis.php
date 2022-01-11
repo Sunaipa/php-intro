@@ -22,9 +22,6 @@ $complement = [
 </head>
 <body>
     <h2>Cadavre exquis</h2>
-    <form method="post">
-        <button type="submit" name="submit">GO</button>
-    </form>
     <p>
         <?php echo $sujet[array_rand($sujet)] . ' ' . $verbe[array_rand($verbe)] . ' ' . $complement[array_rand($complement)] ?>
     </p>
