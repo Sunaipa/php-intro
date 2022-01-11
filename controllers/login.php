@@ -1,23 +1,21 @@
 <?php
 
-
 $isPosted = filter_has_var(INPUT_POST, "submit");
 $errors = [];
 
-if ($isPosted) {
+if($isPosted){
     $login = filter_input(INPUT_POST, "login", FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, "password", FILTER_DEFAULT);
+    $password = filter_input(INPUT_POST, "pwd", FILTER_DEFAULT);
 
-    if (empty($login)) {
+    if(empty($login)){
         array_push($errors, "Vous devez saisir le login");
-    };
+    }
     if (empty($password)) {
-        array_push($errors, "Vous devez saisir le password");
-    };
-    var_dump($login);
-    var_dump($password);
-    if (count($errors) == 0) {
-        if ($login == "user" && $password == "123") {
+        array_push($errors, "Vous devez saisir le mot de passe");
+    }
+
+    if(count($errors) == 0){
+        if($login == "user" && $password == "123"){
             $_SESSION["user"] = $login;
             header("location:index.php?page=home");
             exit;
@@ -26,6 +24,11 @@ if ($isPosted) {
         }
     }
 }
-$hasErrors = count($errors) > 0;
 
-require "views/login.php";
+$hasErrors = count($errors) > 0;
+$title = "login";
+
+// Affichage de la vue
+$template = "$controller.php";
+// Affichage de la vue
+require "views/gabarit.php";
