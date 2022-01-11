@@ -5,7 +5,7 @@ $errors = [];
 
 if($isPosted){
     $login = filter_input(INPUT_POST, "login", FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, "pwd", FILTER_DEFAULT);
+    $password = filter_input(INPUT_POST, "password", FILTER_DEFAULT);
 
     if(empty($login)){
         array_push($errors, "Vous devez saisir le login");

@@ -7,7 +7,7 @@
     <title><?= $title ?? "Mon site" ?></title>
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="container-fluid p-4">
     <nav>
          <?php if (isset($_SESSION['user'])): ?>
             <h3>Bonjour <?=$_SESSION['user']?></h3>
@@ -19,8 +19,11 @@
     </nav>
 
 
-    <div>
-        <?php include "views/$template" ?>
+    <div class="row justify-content-center">
+		<div class="col-md-8 p-2 bg-danger">
+			<?php include "views/$template" ?>
+		</div>
+        
     </div>
     
 </body>

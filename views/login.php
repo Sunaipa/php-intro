@@ -17,16 +17,16 @@
     <?php endif; ?>
 
     <form method="POST">
-        <div>
-            <label>Identifiant :</label>
-            <input type="text" name="login"> 
+        <div class="mb-3">
+            <label class="form-label">Identifiant :</label>
+            <input type="text" name="login" class="form-controle"> 
         </div>
         <div>
-            <label>Password :</label>
-            <input type="password" name="password"> 
+            <label class="form-label">Password :</label>
+            <input type="password" name="password" class="form-controle"> 
         </div>
         <div>
-            <button type="submit" name="submit">Go</button>
+            <button type="submit" name="submit" class="btn btn-primary">Go</button>
         </div>
     </form>
 </body>
