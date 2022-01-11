@@ -1,6 +1,22 @@
 <?php
+session_start();
+session_regenerate_id(true);
+
+
 //Récupération du nom du contrôleur. Par defaut "intro
-$page = filter_input(INPUT_GET, "page")?? "intro";
+$page = filter_input(INPUT_GET, "page") ?? "intro";
+
+//Routes sécurisées
+$securedRoutes = [
+    "cadavre-exquis", "formulaire", "contact"
+];
+
+//Redirection vers login
+//quand on est anonyme et que l'on veut accèder à une route sécurisée
+if (in_array($page, $securedRoutes) && ! isset($_SESSION["user"])) {
+    header("location:index.php?page=login");
+    exit;
+}
 
 //Table de routage
 $routes = [

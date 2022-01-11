@@ -7,6 +7,10 @@
     <title><?=$title?></title>
 </head>
 <body>
+    <?php if (isset($_SESSION['user'])): ?>
+        <h3>Bonjour <?= $_SESSION['user'] ?></h3>
+        <a href="/index.php?page=logout">Déconnexion</a>
+    <?php endif ?>
     <h1><?=$title?></h1>
 </body>
 </html>

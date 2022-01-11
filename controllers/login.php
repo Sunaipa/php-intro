@@ -18,6 +18,7 @@ if ($isPosted) {
     var_dump($password);
     if (count($errors) == 0) {
         if ($login == "user" && $password == "123") {
+            $_SESSION["user"] = $login;
             header("location:index.php?page=home");
             exit;
         } else {
