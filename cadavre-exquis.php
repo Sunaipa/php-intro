@@ -1,20 +1,16 @@
 <?php
-
 $sujet = [
     "cadavre exquis", "troupe de singe", "killa", "un chien"
 ];
-
 $verbe = [
-    "mange", "boix", "marche", "vole", "est"
+    "mange", "bois", "marche", "vole", "est"
 ];
-
 $complement = [
     "une courgette", "une app", "là", "dans un parc"
 ];
 
-shuffle($sujet);
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +22,11 @@ shuffle($sujet);
 </head>
 <body>
     <h2>Cadavre exquis</h2>
-    <p>>
-        <php echo $sujet[rand] ?>
+    <form method="post">
+        <button type="submit" name="submit">GO</button>
+    </form>
+    <p>
+        <?php echo $sujet[array_rand($sujet)] . ' ' . $verbe[array_rand($verbe)] . ' ' . $complement[array_rand($complement)] ?>
     </p>
 </body>
 </html>
