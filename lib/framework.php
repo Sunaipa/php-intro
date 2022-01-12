@@ -54,3 +54,19 @@ function render(string $template, array $params = [], string $layout = 'gabarit'
     $params["content"] = getTemplateContent($template, $params);
     return getTemplateContent($layout, $params);
 }
+
+/**
+ * Obient le lien vers une route
+ *
+ * @param string $route
+ * @param array $query
+ * @return string
+ */
+function getLinkToRoute(string $route, array $query = []): string {
+    $queryString = "";
+    foreach($query as $key => $value) {
+        $queryString .= "&$key=$value";
+    }
+
+    return "/index.php?page=$route$queryString";
+}
