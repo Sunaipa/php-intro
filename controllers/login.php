@@ -17,7 +17,10 @@ if($isPosted){
     if(count($errors) == 0){
         if($login == "user" && $password == "123"){
             $_SESSION["user"] = $login;
-            header("location:index.php?page=home");
+            addFlash("Vous êtes connecté");
+            $redirect = $_SESSION["redirectPage"] ?? "home";
+            unset($_SESSION["redirectPage"]);
+            header("location:index.php?page=$redirect");
             exit;
         } else {
             array_push($errors, "Vos infos de connection sont incorrectes");
@@ -25,10 +28,7 @@ if($isPosted){
     }
 }
 
-$hasErrors = count($errors) > 0;
-$title = "login";
-
-// Affichage de la vue
-$template = "$controller.php";
-// Affichage de la vue
-require "views/gabarit.php";
+echo render($controller, [
+    "title" => "login",
+    "hasErrors" => count($errors) > 0
+]);
