@@ -1,50 +1,77 @@
-<?php 
+<?php
+require "models/person.php";
 
-$db = new PDO(
-    "mysql:host=127.0.0.1;dbname=formation_cda_2022;charset=utf8",
-    "root",
-    ""
-);
+// Connexion au serveur de la BD
+$db = getPDO();
 
-//Récupération des paramètre du script transmis dans l'url
+// Recuperation des parametres du script transmi dans l'url
 $id = (int) filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
-$action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, "action", FILTER_DEFAULT);
 
-//Gestion de la suppression
-if ($id && $action === "delete") {
-    $sql = "DELETE FROM persons WHERE id=$id";
-    $db->exec($sql);
-    header("location: ". getLinkToRoute("pdo_persons"));
-    exit;
+
+// Verification de la presence d'une variables
+$isPosted = filter_has_var(INPUT_POST, "first_name");
+
+//Traitement du formulaire
+if ($isPosted) {
+	// Recuperation des données
+	$firstName = filter_input(INPUT_POST, "first_name", FILTER_SANITIZE_STRING);
+	$lastName = filter_input(INPUT_POST, "last_name", FILTER_SANITIZE_STRING);
+	$id = (int)filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT);
+
+	if (!empty(trim($lastName)) && !empty(trim($firstName))) {
+		savePerson($id, $firstName, $lastName);
+		header("Location:" . getLinkToRoute("pdo_persons"));
+		exit;
+	}
 }
 
-//Requete pour lister toutes les personnnes
-$result = $db->query("SELECT * FROM persons");
 
-$data = $result->fetchAll(PDO::FETCH_OBJ);
+// Gestion de la supression
+if ($id && $action === "delete") {
+	deleteOnePersonById($id);
+	header("Location:" . getLinkToRoute("pdo_persons"));
+	exit;
+}
 
-//Affichage de la vue
-echo render("persons", ["personList" => $data]);
-
-
-
-
-
-/*
-Récupération des résultats dans une boucle while
-while ( ($row = $result->fetch(PDO::FETCH_OBJ)) !== false) {
-    echo "<p>{$row->first_name} {$row->last_name} </p>";
+// En cas de modification, récupération des infos de la personne à modifier
+$currentPerson = getEmptyPerson();
+if ($id && $action === "update") {
+	$currentPerson = getOnePersonByID($id);
 };
-*/
 
-/*
-Récupération des résultats un à un
 
-$row = $result->fetch(PDO::FETCH_ASSOC);
-var_dump($row);
-echo "<p> {$row['first_name']} {$row['last_name']} </p>";
+// Affichage de la vue
+echo render(
+	"persons",
+	[
+		"personList" => findAllPersons(),
+		"currentPerson" => $currentPerson
+	]
+);
 
-$row = $result->fetch(PDO::FETCH_NUM);
-var_dump($row);
-echo "<p>{$row[2]} {$row[1]} </p>";
-*/
+
+
+
+/**
+ * Récupération des résultat dans une boucle while
+ * $row = $result->fetch(PDO::FETCH_OBJ);
+ *
+ *  while ( $row !== false)  {
+ *	echo "<p> {$row->first_name} {$row->last_name} </p>";
+ *	$row = $result->fetch(PDO::FETCH_OBJ);
+ *}
+ */
+
+
+
+/**
+ * Récuperation des résultats un à un
+ * $row = $result->fetch(PDO::FETCH_ASSOC);
+ * var_dump($row);
+ * echo "<p> {$row['first_name']} {$row['last_name']} </p>"; 
+ * 
+ * $row = $result->fetch(PDO::FETCH_NUM);
+ * var_dump($row);
+ * echo "<p> {$row[2]} {$row[1]} </p>"; 
+ */

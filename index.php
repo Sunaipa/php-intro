@@ -2,9 +2,16 @@
 session_start();
 session_regenerate_id(true);
 
+// Configuration de l'application
+define("DSN" , "mysql:host=127.0.0.1;dbname=formation_cda_2022;charset=utf8");
+define("DB_USER", "root");
+define("DB_PASS", "");
+
+
 // inclusion des bibliothèques
 require "lib/flash.php";
 require "lib/framework.php";
+
 
 // Récupération du nom du contrôleur
 // par défaut "intro"
@@ -25,17 +32,15 @@ if(in_array($page, $securedRoutes ) && ! isset($_SESSION["user"])){
     exit;
 }
 
-
-//Table de routage
+// Table de routage
 $routes = [
     "telechargement" => "upload",
     "contact" => "formulaire",
-    "test-lib" => "include-tools"
+    "test-lib" => "include_tools"
 ];
 
-//Gestion du routage
-//Cette fonction nous retourne deux variables
-//$controller et $controllerPath
-extract(getRouteInfo($page, $routes), EXTR_OVERWRITE);
+// Gestion du routage
+// Cette fonction retourne deux variables:  $controller, $controllerpath
+extract(getRouteInfos($page, $routes), EXTR_OVERWRITE);
 
 require $controllerPath;
