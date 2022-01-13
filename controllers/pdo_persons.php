@@ -6,6 +6,18 @@ $db = new PDO(
     ""
 );
 
+//Récupération des paramètre du script transmis dans l'url
+$id = (int) filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
+$action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_STRING);
+
+//Gestion de la suppression
+if ($id && $action === "delete") {
+    $sql = "DELETE FROM persons WHERE id=$id";
+    $db->exec($sql);
+    header("location: ". getLinkToRoute("pdo_persons"));
+    exit;
+}
+
 //Requete pour lister toutes les personnnes
 $result = $db->query("SELECT * FROM persons");
 
@@ -13,6 +25,10 @@ $data = $result->fetchAll(PDO::FETCH_OBJ);
 
 //Affichage de la vue
 echo render("persons", ["personList" => $data]);
+
+
+
+
 
 /*
 Récupération des résultats dans une boucle while
