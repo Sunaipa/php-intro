@@ -8,7 +8,6 @@ $db = getPDO();
 $id = (int) filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 $action = filter_input(INPUT_GET, "action", FILTER_DEFAULT);
 
-
 // Verification de la presence d'une variables
 $isPosted = filter_has_var(INPUT_POST, "first_name");
 

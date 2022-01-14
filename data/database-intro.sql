@@ -21,3 +21,10 @@ UPDATE persons SET first_name = 'Siobhan' WHERE id=3;
 
 -- affichage des données
 SELECT * FROM persons WHERE last_name = 'LoveLace';
+
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_login  VARCHAR(30) NOT NULL,
+    user_password VARCHAR(128) NOT NULL
+)
